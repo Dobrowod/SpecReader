@@ -2,7 +2,8 @@
 
 More information to follow...
 
-Simple SpecReader, terminal/command-line based. Confirmed working on Linux/MacOS, should work on Windows but to be determined
+Simple python SpecReader, terminal/command-line based. 
+Confirmed working on Linux/MacOS, should work on Windows but to be determined
 
 Use Instructions:
   Place SpecReader.py into the same folder as the Spec file you would like to process
