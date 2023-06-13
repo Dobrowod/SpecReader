@@ -1,6 +1,6 @@
 # SpecReader
 
-Version 0.3
+Version 0.3/n
 Simple python SpecReader, terminal/command-line based. 
 Confirmed working on Linux/MacOS, should work on Windows but to be determined
 
