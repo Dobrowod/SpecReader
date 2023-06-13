@@ -14,7 +14,7 @@ def while_func(data, k):
     if data[k][0] == '#L':
         return True
     else:
-        test = data[k][0].replace('.','')
+        test = data[k][0].replace('.','').replace('-','')
         return test.isnumeric()
 
 def FullReader(file_raw,scan_start, scan_end, scan_label,spacing):
@@ -27,7 +27,7 @@ def FullReader(file_raw,scan_start, scan_end, scan_label,spacing):
         k = 0
         while k < len(data) and current_scan<=scan_end:
             if data[k][0]=='#S':
-                current_scan += 1
+                current_scan = int(data[k][1])
                 if scan_start<=current_scan<=scan_end and (current_scan - scan_start)%spacing == 0: 
                     while data[k][0] != '#L':
                         k+=1
