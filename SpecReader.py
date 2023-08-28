@@ -8,7 +8,7 @@ import shutil
 import copy
 import fnmatch
 
-version_number = 0.31
+version_number = 0.4
 
 def while_func(data, k):
     if data[k][0] == '#L':
@@ -143,7 +143,38 @@ def Normalization(norm_columns,untouched_columns):
     print('\nnormalized files created')
     return norm_columns,untouched_columns
 
+def Averaging():
+        counter = 0
+        array_final = []
+        for file_true in glob.glob('*.csv'): 
+            add_array = []
+            with open(file_true,'r') as data_file:
+                for line in data_file.read().splitlines():
+                    add_array.append(line.split(','))
+            data_file.close()
+                        
+            if counter == 0:
+                array_final = copy.deepcopy(add_array)
+                for m in range(1,len(array_final)-1):
+                        array_final[m][1] = float(array_final[m][1])
+                        array_final[m][0] = float(array_final[m][0])
+            else:
+                for i in range(1,len(add_array)-1):
+                    array_final[i][1] += float(add_array[i][1])
+            counter+=1
 
+        print(counter)
+
+        for i in range(1,len(array_final)-1):
+            array_final[i][1] = array_final[i][1]/counter
+            array_final[i][0] = round(array_final[i][0],3)
+            
+        outfile=open('averaged.csv','w')
+        for m in range(len(array_final)-1):
+            for p in range(len(array_final[0])-1):
+                outfile.write(str(array_final[m][p])+",")
+            outfile.write('\n')
+        outfile.close()
 ###End of Functions###
 
 print('SpecReader V',version_number,'\nThis script is currently confirmed fully compatible with the following beamline SPEC formats: \nCHESS ID4B,ID2A \nCLS 10ID-2\nAPS 29-ID-C,D\nThough it should be compatible with other formats.\n')
@@ -215,11 +246,20 @@ while more == 'y' or more == 'yes' or more == 'ye':
                         shutil.move(norm_file,dir_name+'/NormedScans_'+raw_name)
                             
     
+    if normie == 'y' or normie == 'yes' or normie == 'ye':    
+        avg = str(input('Would you like to average the normalised files? (y/n) '))
+        if avg == 'y' or avg == 'yes' or avg == 'ye':
+            os.chdir(dir_name+'/NormedScans_'+raw_name)
+            Averaging()
+            os.chdir(dir_name)
+        
+    
     remove = str(input('\nWould you like to remove '+raw_name+' from the parent directory \n(Do not remove if you have more scans to process in this file) (y/n)? '))
     remove = remove.lower()
     if remove == 'y' or remove == 'yes' or remove == 'ye':
         os.chdir('..')
         os.remove(raw_name)
+    
     more = str(input('\nWould you like to process another scan or file?(y/n) '))
     more = more.lower()
     os.chdir('..')
