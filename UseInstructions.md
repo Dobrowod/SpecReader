@@ -1,6 +1,6 @@
 # SpecReader
 
-Version 0.3
+Version 0.4
 
 Simple python SpecReader, terminal/command-line based. 
 
