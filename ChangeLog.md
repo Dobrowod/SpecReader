@@ -1,3 +1,6 @@
+August 28 2023: v0.4
+- FEATURE: added very basic averaging function for normalised files which uses index, will eventually do a more robust version when required
+
 June 13 2023: v0.31
 - BUGFIX: No longer fails to output if the first column has a negative number
 - QOL CHANGE/BUGFIX: Relies on the actual spec count number instead of the number of #S's it encounters - stopping missing scans from giving incorrect outputs
